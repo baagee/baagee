@@ -1,6 +1,6 @@
 <?php
 $articleDir = __DIR__ . '/articles';
-
+date_default_timezone_set('PRC');
 $config = [
     'introduction' => [
         'nickname' => '我和你荡秋千',
