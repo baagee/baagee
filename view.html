@@ -89,7 +89,7 @@
     }
 
     var p = getQueryVariable('p');
-    document.title = p;
+    document.title = decodeURI(p.split("/").slice(-1)[0]);
     $.get(p, function (data, status) {
         if (status === 'success') {
             editormd.markdownToHTML("articleContent", {
