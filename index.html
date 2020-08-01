@@ -2,103 +2,21 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>接口文档啊1</title>
+    <title>Hello</title>
     <meta name="keywords" content="index">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="renderer" content="webkit">
     <meta http-equiv="Cache-Control" content="no-siteapp">
-    <link rel="stylesheet" href="assets/amazeui.min.css">
-    <link rel="stylesheet" href="assets/editormd.preview.css">
-    <script src="assets/jquery.min.js"></script>
-    <style>
-        #sidebar {
-            width: 33%;
-            height: 100%;
-            position: fixed;
-            top: 0;
-            right: 0;
-            overflow: hidden;
-            background: #fff;
-            z-index: 100;
-            padding: 18px;
-            border: 1px solid #ddd;
-            border-top: none;
-            border-bottom: none;
-        }
-
-        #sidebar:hover {
-            overflow: auto;
-        }
-
-        #sidebar h1 {
-            font-size: 16px;
-        }
-
-        #custom-toc-container {
-            padding-left: 0;
-            padding-top: 0;
-        }
-    </style>
-
 </head>
 
-<body style="">
-
-<div class="am-g">
-
-    <div class="am-u-md-8 am-u-sm-12">
-        <div style="">
-            <header style="padding: 20px 0 0 20px;">
-                <h1 style="font-size: 2em">接口文档啊1</h1>
-                <p>分类：沙琪玛 <br>
-                    标签：api<br>
-                    作者：baagee 浏览量：31<br>
-                    创建时间：2020-07-28 11:18:43<br>
-                    修改时间：2020-07-28 11:18:43</p>
-            </header>
-            <hr>
-            <div id="articleContent">
-                <textarea style="display:none;" id="articleMdContent"
-                          name="article-editormd-markdown-doc">gdsa</textarea>
-            </div>
-        </div>
-    </div>
-
-    <div class="am-u-md-4">
-        <div id="sidebar" class="am-show-md-up">
-            <h1>目录</h1>
-            <div class="markdown-body editormd-preview-container" id="custom-toc-container"></div>
-        </div>
-    </div>
-
+<body>
+<div>
+<pre>
+articles
+└── 测试test
+    └── <a href="view.html?p=/articles/测试test/test1.md">test1.md</a>
+</pre>
 </div>
-
-<script src="assets/marked.min.js"></script>
-<script src="assets/prettify.min.js"></script>
-<script src="assets/raphael.min.js"></script>
-<script src="assets/underscore.min.js"></script>
-<script src="assets/sequence-diagram.min.js"></script>
-<script src="assets/flowchart.min.js"></script>
-<script src="assets/jquery.flowchart.min.js"></script>
-<script src="assets/editormd.js"></script>
-<script type="text/javascript">
-    $.get('/articles/test1.md', function (data, status) {
-        if (status === 'success') {
-            editormd.markdownToHTML("articleContent", {
-                markdown: data,
-                tocm: true,
-                tocContainer: "#custom-toc-container", // 自定义 ToC 容器层
-                emoji: true,
-                taskList: true,
-                tex: true,  // 默认不解析
-                flowChart: true,  // 默认不解析
-                sequenceDiagram: true,  // 默认不解析
-            });
-        }
-    })
-</script>
-
 </body>
 </html>
