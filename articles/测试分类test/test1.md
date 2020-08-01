@@ -1,26 +1,12 @@
 # Test测试文章
 
 
-**目录 (Table of Contents)**
-
-[TOCM]
-
-[TOC]
-
 # Heading 1
 ## Heading 2               
 ### Heading 3
 #### Heading 4
 ##### Heading 5
 ###### Heading 6
-# Heading 1 link [Heading link](https://github.com/pandao/editor.md "Heading link")
-## Heading 2 link [Heading link](https://github.com/pandao/editor.md "Heading link")
-### Heading 3 link [Heading link](https://github.com/pandao/editor.md "Heading link")
-#### Heading 4 link [Heading link](https://github.com/pandao/editor.md "Heading link") Heading link [Heading link](https://github.com/pandao/editor.md "Heading link")
-##### Heading 5 link [Heading link](https://github.com/pandao/editor.md "Heading link")
-###### Heading 6 link [Heading link](https://github.com/pandao/editor.md "Heading link")
-
-#### 标题（用底线的形式）Heading (underline)
 
 This is an H1
 =============
@@ -67,9 +53,9 @@ The <abbr title="Hyper Text Markup Language">HTML</abbr> specification is mainta
 
 [mailto:test.test@gmail.com](mailto:test.test@gmail.com)
 
-GFM a-tail link @pandao  邮箱地址自动链接 test.test@gmail.com  www@vip.qq.com
+GFM a-tail link @sgsdg  邮箱地址自动链接 test.test@gmail.com  www@vip.qq.com
 
-> @pandao
+> @sgsdg
 
 ### 多语言代码高亮 Codes
 
@@ -278,7 +264,7 @@ X&sup2; Y&sup3; &frac34; &frac14;  &times;  &divide;   &raquo;
 - [x] :smiley: @mentions, :smiley: #refs, [links](), **formatting**, and <del>tags</del> supported :editormd-logo:;
 - [x] list syntax required (any unordered or ordered list supported) :editormd-logo-3x:;
 - [x] [ ] :smiley: this is a complete item :smiley:;
-- [ ] []this is an incomplete item [test link](#) :fa-star: @pandao; 
+- [ ] []this is an incomplete item [test link](#) :fa-star: @sgsdg; 
 - [ ] [ ]this is an incomplete item :fa-star: :fa-gear:;
     - [ ] :smiley: this is an incomplete item [test link](#) :fa-star: :fa-gear:;
     - [ ] :smiley: this is  :fa-star: :fa-gear: an incomplete item [test link](#);
