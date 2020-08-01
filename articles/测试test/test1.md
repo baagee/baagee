@@ -1,132 +1,362 @@
-## 0 通用约定
-### 签名
-1. 双方约定一个对称密钥 secret_key 例如 &quot;abcdefghijklmnop&quot;
-2. 按一下顺序构造被签名内容字符串（UTF-8编码）：
+# Test测试文章
 
-- secret_key （如abcdefghijklmnop）
-- request_uri （如/consignor/cang/order/pushwithtask）
-- reqeust_body_raw （如{&quot;ts&quot;:153124523,&quot;ver&quot;:1,&quot;task_code&quot;:&quot;ABCDEJKNPQ&quot;}）
-3. 将以上内容用 | 进行字符串拼接作为被签名内容，如abcdefghijklmnop|/consignor/cang/order/pushwithtask|{&quot;ts&quot;:153124523,&quot;ver&quot;:1,&quot;task_code&quot;:&quot;ABCDEJKNPQ&quot;}
-4. 对以上字符串进行sha1运算得到签名串40位字符串。如前面得到的字符串的签名结果是 843c25a6a73ca2685feb11d397cca34a7707c1ed
-5. 由于POST的内容未来可能会有调整，所以请不要按照特定顺序拼接内容，必须要对完整的RequestBody进行签名和验签。
-6. 验签注意，由于Java中很多框架支持自动读取JSON格式的数据，但是读取后并不能准确还原原始JSON字符串内容。为避免由于解析后重新生成JSON导致字符串不同，需要在框架解析之前，自行提取原始POST内容进行验签。如SpringMVC的一种实现方式：
 
-```
-@RequestMapping(&quot;/xxx/yyy/zzz&quot;)
-public void xxxYyyZzz(@RequestBody String json,HttpServletRequest request) {
-  String uri = &quot;/xxx/yyy/zzz&quot;;
-  String key = &quot;abcdefghijklmnop&quot;;
-  String toSign = key + &quot;|&quot; + uri + &quot;|&quot; + json;
-  String signature = sha1(toSign);
-}
-```
+**目录 (Table of Contents)**
+
+[TOCM]
+
+[TOC]
+
+# Heading 1
+## Heading 2               
+### Heading 3
+#### Heading 4
+##### Heading 5
+###### Heading 6
+# Heading 1 link [Heading link](https://github.com/pandao/editor.md "Heading link")
+## Heading 2 link [Heading link](https://github.com/pandao/editor.md "Heading link")
+### Heading 3 link [Heading link](https://github.com/pandao/editor.md "Heading link")
+#### Heading 4 link [Heading link](https://github.com/pandao/editor.md "Heading link") Heading link [Heading link](https://github.com/pandao/editor.md "Heading link")
+##### Heading 5 link [Heading link](https://github.com/pandao/editor.md "Heading link")
+###### Heading 6 link [Heading link](https://github.com/pandao/editor.md "Heading link")
+
+#### 标题（用底线的形式）Heading (underline)
+
+This is an H1
+=============
+
+This is an H2
+-------------
+
+### 字符效果和横线等
+                
+----
+
+~~删除线~~ <s>删除线（开启识别HTML标签时）</s>
+*斜体字*      _斜体字_
+**粗体**  __粗体__
+***粗斜体*** ___粗斜体___
+
+上标：X<sub>2</sub>，下标：O<sup>2</sup>
+
+**缩写(同HTML的abbr标签)**
+
+> 即更长的单词或短语的缩写形式，前提是开启识别HTML标签时，已默认开启
+
+The <abbr title="Hyper Text Markup Language">HTML</abbr> specification is maintained by the <abbr title="World Wide Web Consortium">W3C</abbr>.
+
+### 引用 Blockquotes
+
+> 引用文本 Blockquotes
+
+引用的行内混合 Blockquotes
+                    
+> 引用：如果想要插入空白换行`即<br />标签`，在插入处先键入两个以上的空格然后回车即可，[普通链接](http://localhost/)。
+
+### 锚点与链接 Links
+
+[普通链接](http://localhost/)
+
+[普通链接带标题](http://localhost/ "普通链接带标题")
+
+直接链接：<https://github.com>
+
+[锚点链接][anchor-id] 
+
+[anchor-id]: http://www.this-anchor-link.com/
+
+[mailto:test.test@gmail.com](mailto:test.test@gmail.com)
+
+GFM a-tail link @pandao  邮箱地址自动链接 test.test@gmail.com  www@vip.qq.com
+
+> @pandao
+
+### 多语言代码高亮 Codes
+
+#### 行内代码 Inline code
+
+执行命令：`npm install marked`
+
+#### 缩进风格
+
+即缩进四个空格，也做为实现类似 `<pre>` 预格式化文本 ( Preformatted Text ) 的功能。
+
+    <?php
+        echo "Hello world!";
+    ?>
+    
+预格式化文本：
+
+    | First Header  | Second Header |
+    | ------------- | ------------- |
+    | Content Cell  | Content Cell  |
+    | Content Cell  | Content Cell  |
+
+#### JS代码　
+
 ```javascript
-<script>alert(1)</script>
-```
-
-
-## 1.根据AOI查询排班小哥接口
-
-POST  /srm/api2/getcourierbyaoi?sign=XXXXXXXXXXXXXX&amp;service_name=XXXX
-
-Content-Type: application/json
-
-#### 入参
-
-元素名 | 类型 | 必填 | 描述
----|---|---|---
-aoi_id | string | 是 | AOI编码
-date | string | 是 | 日期（前后三天：3天前、今天、明天、后天）
-type | string | 是 | 排班类型（收P，派D，收+派（P,D））
-sys | string | 是 | 请求来源系统
-
-#### 返回
-
-元素名 | 类型 | 必填 | 描述
----|---|---|---
-dept_code | string | 是 | AOI归属网点
-aoi_name | string | 是 | AOI名称
-aoi_area_list | list | 是 |
-
-##### aoi_area_list 结构
-
-元素名 | 类型 | 必填 | 描述
----|---|---|---
-aoi_area_code| string | 是 | AOI归属的AOI区域
-schedule_list | list | 是 | 班次信息
-
-##### schedule_list 结构
-
-元素名 | 类型 | 必填 | 描述
----|---|---|---
-batch_code | string | 是 | 班次code
-batch_type | string | 是 | 收P、派D
-batch_start_time | string | 是 | 班次开始时间：如 10:00
-batch_end_time | string | 是 | 班次结束时间：如 12:00
-courier_list | list | 是 | 收派员列表
-weight_list | list | 是 | 重量段
-
-##### courier_list 结构
-
-元素名 | 类型 | 必填 | 描述
----|---|---|---
-courier_code | string | 是 | 收派员工号
-courier_name | string | 是 | 收派员姓名
-
-#### weight_list 结构
-
-元素名 | 类型 | 必填 | 描述
----|---|---|---
-weight_lower | int | 是 | 最小重量(kg)
-weight_upper | int | 是 | 最大重量(kg)
-
-#### 入参示例
-```
-{
-    &quot;aoi_id&quot;:&quot;AOI编码&quot;,
-    &quot;date&quot;:&quot;日期 2020-01-01（前后三天：3天前、今天、明天、后天）&quot;,
-    &quot;type&quot;:&quot;P|D|P,D&quot;
+function test() {
+	console.log("Hello world!");
 }
+ 
+(function(){
+    var box = function() {
+        return box.fn.init();
+    };
+
+    box.prototype = box.fn = {
+        init : function(){
+            console.log('box.init()');
+
+			return this;
+        },
+
+		add : function(str) {
+			alert("add", str);
+
+			return this;
+		},
+
+		remove : function(str) {
+			alert("remove", str);
+
+			return this;
+		}
+    };
+    
+    box.fn.init.prototype = box.fn;
+    
+    window.box =box;
+})();
+
+var testBox = box();
+testBox.add("jQuery").remove("jQuery");
 ```
 
-#### 返回示例
+#### HTML 代码 HTML codes
 
+```html
+<!DOCTYPE html>
+<html>
+    <head>
+        <mate charest="utf-8" />
+        <meta name="keywords" content="Editor.md, Markdown, Editor" />
+        <title>Hello world!</title>
+        <style type="text/css">
+            body{font-size:14px;color:#444;font-family: "Microsoft Yahei", Tahoma, "Hiragino Sans GB", Arial;background:#fff;}
+            ul{list-style: none;}
+            img{border:none;vertical-align: middle;}
+        </style>
+    </head>
+    <body>
+        <h1 class="text-xxl">Hello world!</h1>
+        <p class="text-green">Plain text</p>
+    </body>
+</html>
 ```
-{
-    &quot;errno&quot;:0,
-    &quot;errmsg&quot;:&quot;错误信息...&quot;,
-    &quot;data&quot;:{
-        &quot;dept_code&quot;:&quot;AOI归属网点代码&quot;,
-        &quot;aoi_name&quot;:&quot;AOI名称&quot;,
-        &quot;aoi_area_list&quot;:[
-            {
-                &quot;aoi_area_code&quot;:&quot;AOI归属的AOI区域&quot;,
-                &quot;schedule_list&quot;:[
-                    {
-                        &quot;batch_code&quot;:&quot;班次code&quot;,
-                        &quot;batch_type&quot;:&quot;收P or 派D&quot;,
-                        &quot;batch_start_time&quot;:&quot;班次开始时间：如 10:00&quot;,
-                        &quot;batch_end_time&quot;:&quot;班次结束时间：如 12:00&quot;,
-                        &quot;courier_list&quot;:[
-                            {
-                                &quot;courier_code&quot;:&quot;收派员工号&quot;,
-                                &quot;courier_name&quot;:&quot;收派员姓名&quot;
-                            },
-                            {
-                                &quot;courier_code&quot;:&quot;收派员工号&quot;,
-                                &quot;courier_name&quot;:&quot;收派员姓名&quot;
-                            }
-                        ],
-                        &quot;weight&quot;:[
-                            {
-                                &quot;weight_lower&quot;:0,
-                                &quot;weight_upper&quot;:10
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
+
+### 图片 Images
+
+Image:
+
+![](https://pandao.github.io/editor.md/examples/images/4.jpg)
+
+> Follow your heart.
+
+![](https://pandao.github.io/editor.md/examples/images/8.jpg)
+
+> 图为：厦门白城沙滩
+
+图片加链接 (Image + Link)：
+
+[![](https://pandao.github.io/editor.md/examples/images/7.jpg)](https://pandao.github.io/editor.md/images/7.jpg "李健首张专辑《似水流年》封面")
+
+> 图为：李健首张专辑《似水流年》封面
+                
+----
+
+### 列表 Lists
+
+#### 无序列表（减号）Unordered Lists (-)
+                
+- 列表一
+- 列表二
+- 列表三
+     
+#### 无序列表（星号）Unordered Lists (*)
+
+* 列表一
+* 列表二
+* 列表三
+
+#### 无序列表（加号和嵌套）Unordered Lists (+)
+                
++ 列表一
++ 列表二
+    + 列表二-1
+    + 列表二-2
+    + 列表二-3
++ 列表三
+    * 列表一
+    * 列表二
+    * 列表三
+
+#### 有序列表 Ordered Lists (-)
+                
+1. 第一行
+2. 第二行
+3. 第三行
+
+#### GFM task list
+
+- [x] GFM task list 1
+- [x] GFM task list 2
+- [ ] GFM task list 3
+    - [ ] GFM task list 3-1
+    - [ ] GFM task list 3-2
+    - [ ] GFM task list 3-3
+- [ ] GFM task list 4
+    - [ ] GFM task list 4-1
+    - [ ] GFM task list 4-2
+                
+----
+                    
+### 绘制表格 Tables
+
+| 项目        | 价格   |  数量  |
+| --------   | -----:  | :----:  |
+| 计算机      | $1600   |   5     |
+| 手机        |   $12   |   12   |
+| 管线        |    $1    |  234  |
+                    
+First Header  | Second Header
+------------- | -------------
+Content Cell  | Content Cell
+Content Cell  | Content Cell 
+
+| First Header  | Second Header |
+| ------------- | ------------- |
+| Content Cell  | Content Cell  |
+| Content Cell  | Content Cell  |
+
+| Function name | Description                    |
+| ------------- | ------------------------------ |
+| `help()`      | Display the help window.       |
+| `destroy()`   | **Destroy your computer!**     |
+
+| Left-Aligned  | Center Aligned  | Right Aligned |
+| :------------ |:---------------:| -----:|
+| col 3 is      | some wordy text | $1600 |
+| col 2 is      | centered        |   $12 |
+| zebra stripes | are neat        |    $1 |
+
+| Item      | Value |
+| --------- | -----:|
+| Computer  | $1600 |
+| Phone     |   $12 |
+| Pipe      |    $1 |
+                
+----
+
+#### 特殊符号 HTML Entities Codes
+
+&copy; &  &uml; &trade; &iexcl; &pound;
+&amp; &lt; &gt; &yen; &euro; &reg; &plusmn; &para; &sect; &brvbar; &macr; &laquo; &middot; 
+
+X&sup2; Y&sup3; &frac34; &frac14;  &times;  &divide;   &raquo;
+
+18&ordm;C  &quot;  &apos;
+
+[========]
+
+### Emoji表情 :smiley:
+
+> Blockquotes :star:
+
+#### GFM task lists & Emoji & fontAwesome icon emoji & editormd logo emoji :editormd-logo-5x:
+
+- [x] :smiley: @mentions, :smiley: #refs, [links](), **formatting**, and <del>tags</del> supported :editormd-logo:;
+- [x] list syntax required (any unordered or ordered list supported) :editormd-logo-3x:;
+- [x] [ ] :smiley: this is a complete item :smiley:;
+- [ ] []this is an incomplete item [test link](#) :fa-star: @pandao; 
+- [ ] [ ]this is an incomplete item :fa-star: :fa-gear:;
+    - [ ] :smiley: this is an incomplete item [test link](#) :fa-star: :fa-gear:;
+    - [ ] :smiley: this is  :fa-star: :fa-gear: an incomplete item [test link](#);
+ 
+#### 反斜杠 Escape
+
+\*literal asterisks\*
+
+[========]
+            
+### 科学公式 TeX(KaTeX)
+
+$$E=mc^2$$
+
+行内的公式$$E=mc^2$$行内的公式，行内的$$E=mc^2$$公式。
+
+$$x > y$$
+
+$$\(\sqrt{3x-1}+(1+x)^2\)$$
+                    
+$$\sin(\alpha)^{\theta}=\sum_{i=0}^{n}(x^i + \cos(f))$$
+
+多行公式：
+
+```math
+\displaystyle
+\left( \sum\_{k=1}^n a\_k b\_k \right)^2
+\leq
+\left( \sum\_{k=1}^n a\_k^2 \right)
+\left( \sum\_{k=1}^n b\_k^2 \right)
+```
+
+```katex
+\displaystyle 
+    \frac{1}{
+        \Bigl(\sqrt{\phi \sqrt{5}}-\phi\Bigr) e^{
+        \frac25 \pi}} = 1+\frac{e^{-2\pi}} {1+\frac{e^{-4\pi}} {
+        1+\frac{e^{-6\pi}}
+        {1+\frac{e^{-8\pi}}
+         {1+\cdots} }
+        } 
     }
-}
 ```
+
+```latex
+f(x) = \int_{-\infty}^\infty
+    \hat f(\xi)\,e^{2 \pi i \xi x}
+    \,d\xi
+```
+
+### 分页符 Page break
+
+> Print Test: Ctrl + P
+
+[========]
+
+### 绘制流程图 Flowchart
+
+```flow
+st=>start: 用户登陆
+op=>operation: 登陆操作
+cond=>condition: 登陆成功 Yes or No?
+e=>end: 进入后台
+
+st->op->cond
+cond(yes)->e
+cond(no)->op
+```
+
+[========]
+                    
+### 绘制序列图 Sequence Diagram
+                    
+```seq
+Andrew->China: Says Hello 
+Note right of China: China thinks\nabout it 
+China-->Andrew: How are you? 
+Andrew->>China: I am good thanks!
+```
+
+### End
