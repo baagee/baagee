@@ -8,6 +8,7 @@ $config = [
         'jobs' => '程序员(programmer)',
         'email' => '2274313786@qq.com',
         'address' => '北京市海淀区',
+        'github'=>"<a target='_blank' href='https://github.com/baagee'>https://github.com/baagee</a>"
     ],
     'update_time' => date('Y-m-d H:i:s'),
 ];
